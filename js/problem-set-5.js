@@ -28,6 +28,37 @@ function mario() {
 
   // WRITE YOUR EXERCISE 1 CODE HERE
   
+while (true){
+height=prompt("Please enter a valid integer between 1 & 23");
+height=Number(height);
+ if(height>=1 && height<=23 && Number.isInteger(height)){
+  break;
+  };
+
+};
+ let i=1;
+ let hash='#';
+ let lines="<code>";
+ let spaces=height-2;
+
+while (i<=height){
+let a='';
+for(let j=0;j<=spaces;j++) {
+a+='&nbsp;';
+}
+
+ spaces--;
+ hash=hash+'#';
+ lines=lines+a+hash+"</br>";
+ i++;
+}
+
+ document.getElementById("mario-easy-output").innerHTML=lines;
+
+
+ lines=lines+"</code>"
+
+
 
   ////////////////////////// DO NOT MODIFY
   check('mario', height); // DO NOT MODIFY

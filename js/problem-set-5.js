@@ -27,36 +27,25 @@ function mario() {
   ////////////// DO NOT MODIFY
 
   // WRITE YOUR EXERCISE 1 CODE HERE
-  
-while (true){
-height=prompt("Please enter a valid integer between 1 & 23");
-height=Number(height);
- if(height>=1 && height<=23 && Number.isInteger(height)){
-  break;
-  };
+ do {
+    height = Number(prompt("Enter your preferred height"));
+  } while (height < 1 || height > 23);
 
-};
- let i=1;
- let hash='#';
- let lines="<code>";
- let spaces=height-2;
+  let combined = "";
+  for (let i=0; i<height; i++){
+    let row = "";
+    for (let i2=0; i2<(height-i-1); i2++){
+      row = row+"&nbsp;";
+    }
+    row = row+"#";
+    for (let i3=0; i3<(i+1); i3++){
+      row = row+"#";
+    }
+    combined = combined+row+"<br/>";
+  }
+  let op = document.getElementById("mario-easy-output");
+  op.innerHTML = "<code>" + combined + "</code>";
 
-while (i<=height){
-let a='';
-for(let j=0;j<=spaces;j++) {
-a+='&nbsp;';
-}
-
- spaces--;
- hash=hash+'#';
- lines=lines+a+hash+"</br>";
- i++;
-}
-
- document.getElementById("mario-easy-output").innerHTML=lines;
-
-
- lines=lines+"</code>"
 
 
 
@@ -94,7 +83,47 @@ function marioAgain() {
   ////////////// DO NOT MODIFY
 
   // WRITE YOUR EXERCISE 2 CODE HERE
+do {
+    height = prompt("Enter your preferred height");
+  } while (height < 1 || height > 23 || height % 1 != 0);
 
+  let marioHardResult = document.getElementById('mario-hard-output');
+  let x = 1;
+  let space1 = "";
+  height = Number(height);
+
+  while (x < height) {
+    space1 = space1 + "&nbsp";
+    x = x + 1;
+  }
+
+  let hashtag = "##";
+  let resultTwo = space1 + hashtag + "&nbsp&nbsp" + hashtag + "<br/>";
+
+  let y = 1;
+  let z = 1;
+  let zSub = 1;
+  let space = "&nbsp";
+
+  while (y < (height - 1)) {
+    hashtag = hashtag + "#";
+    while (z < (height - 2)) {
+      space = space + "&nbsp";
+      z = z + 1;
+    }
+    resultTwo = resultTwo + space + hashtag + "&nbsp&nbsp" + hashtag + "<br/>";
+    space = "&nbsp";
+    z = zSub + 1;
+    zSub = zSub + 1;
+    y = y + 1;
+  }
+  while (y < height) {
+    hashtag = hashtag + "#";
+    resultTwo = resultTwo + hashtag + "&nbsp&nbsp" + hashtag + "<br/>";
+    y = y + 1;
+  }
+
+  marioHardResult.innerHTML = "<code>" + resultTwo + "</code>";
   //////////////////////////////// DO NOT MODIFY
   check('mario-again', height); // DO NOT MODIFY
   //////////////////////////////// DO NOT MODIFY
@@ -147,7 +176,43 @@ function credit() {
   //////////// DO NOT MODIFY
 
   // WRITE YOUR EXERCISE 3 CODE HERE
-  
+  let odd_sum=0;
+  let even_sum=0;
+  while (true){
+    card = prompt("Enter your credit card number to determine if it is still valid or invalid");
+      if ((card.length==16 || card.length==15 || card.length==13) && Number.isInteger(Number(card))){
+      break;
+    }
+  }
+  for(let i=card.length-2;i>=0;i-=2) {
+    let num=Number(card[i])*2;
+    let strnum=num.toString();
+    let sum_num=0;
+    for (let j=0;j<strnum.length;j++){
+      sum_num=sum_num+Number(strnum[j]);
+    }
+    even_sum=sum_num+even_sum;
+    console.log(even_sum);
+  }
+  for(let k=card.length-1; k>=0;k-=2){
+    odd_sum=odd_sum+Number(card[k])
+  }
+  console.log(odd_sum);
+
+  if (card.length==15 && (card[0]==3 &&(card[1]==7 || card[1]==4)) && (odd_sum+even_sum)%10==0){
+    document.getElementById("credit-output").innerHTML="<img src ='./images/amex.png'/>";
+  }
+  else if ((card.length==13 || card.length==16) && card[0]==4 && (odd_sum+even_sum)%10==0){
+    document.getElementById("credit-output").innerHTML="<img src ='./images/visa.png'/>";
+  }
+  else if (card.length==16 && (card[0]==5 && (card[1]==1 || card[1]==2 || card[1]==4 || card[1]==5)) && (odd_sum+even_sum)%10==0){
+    document.getElementById("credit-output").innerHTML="<img src ='./images/mastercard.png'/>";
+  }
+  else {
+    document.getElementById("credit-output").innerHTML="<img src ='./images/visa.png'/>";
+  }
+
+  card=Number(card);
 
   /*
    * NOTE: After reading in the card number and storing it in the 'card'
@@ -187,6 +252,33 @@ function credit() {
 function guess() {
 
   // WRITE YOUR EXERCISE 4 CODE HERE
+let attemptNumber = 0;
+  let randomNumber = Math.floor(Math.random() * 999) + 1;
+  let found = false;
+  let userNumber;
+  while(found == false) {
+    userNumber = Number(prompt("A number has been generated between 1 and 1000. What do you think it is?"));
+    if(userNumber <= 1000 && userNumber >= 1 && Number.isInteger(userNumber)) {
+      if(userNumber > randomNumber) {
+        alert("Oof your guess was too high!")
+        attemptNumber += 1;
+      }
+      else if(userNumber < randomNumber) {
+        alert("Oof your guess was too low!")
+        attemptNumber += 1;
+      }
+      else if(userNumber == randomNumber) {
+        alert("Good job! You guessed it right!")
+        attemptNumber += 1;
+        found = true;
+        document.getElementById("guess-output").innerHTML = "Number: " + randomNumber + "<br/>Attempts: " + attemptNumber;
+      }
+    }
+    else {
+      continue;
+    }
+
+  }
 
   ////////////////// DO NOT MODIFY
   check('guess'); // DO NOT MODIFY
@@ -222,6 +314,33 @@ function hurricane() {
   ///////////////// DO NOT MODIFY
   let windspeed; // DO NOT MODIFY
   ///////////////// DO NOT MODIFY
+do {
+    windspeed = prompt(" Enter an Integer representing windspeed")
+  } while ((Number(windspeed) % 1) != 0 || Number(windspeed) < 0);
+
+  windspeed = Number(windspeed);
+  let hurricaneOutput = document.getElementById('hurricane-output');
+
+  if (windspeed >= 157) {
+    hurricaneOutput.innerHTML = "Category 5 Hurricane.";
+  } else if (windspeed >= 130 && windspeed < 157) {
+    hurricaneOutput.innerHTML = "Category 4 Hurricane.";
+    
+  } else if (windspeed >= 111 && windspeed < 130) {
+    hurricaneOutput.innerHTML = "Category 3 Hurricane.";
+    
+  } else if (windspeed >= 96 && windspeed < 111) {
+    hurricaneOutput.innerHTML = "Category 2 Hurricane.";
+    
+  } else if (windspeed >= 74 && windspeed < 96) {
+    hurricaneOutput.innerHTML = "Category 1 Hurricane.";
+    
+  } else if (windspeed >= 39 && windspeed < 74) {
+    hurricaneOutput.innerHTML = "Tropical Storm.";
+    
+  } else if (windspeed < 39) {
+    hurricaneOutput.innerHTML = "Nice, clear skies today";
+  }
 
   ///////////////////////////////// DO NOT MODIFY
   check('hurricane', windspeed); // DO NOT MODIFY
@@ -252,7 +371,24 @@ function gymnastics() {
   let total = 0; //// DO NOT MODIFY
   let scores = []; // DO NOT MODIFY
   /////////////////// DO NOT MODIFY
-
+let i=1;
+	while(i<=6){
+		let inputScore=Number(prompt("Please enter your scores"));
+		if (inputScore>=1 && inputScore<=10 && Number.isInteger(inputScore)){
+			scores.push(inputScore);
+		i++;
+		}
+	}
+	scores.sort(function(a,b){return a-b;})
+	let max=scores[5];
+	let min=scores[0];
+	let revisedScores=[];
+	for(let j=1;j<5;j++){
+		revisedScores.push(scores[j]);
+	}
+	let averageScore=((revisedScores[0]+revisedScores[1]+revisedScores[2]+revisedScores[3])/4).toFixed(2);
+	document.getElementById("gymnastics-output").innerHTML="Discarded: "+min+", "+max+"</br>Score: "+averageScore;
+  /////////////////////////////// DO NOT MODIFY
   /*
    * NOTE: The 'total' variable should be representative of the sum of all
    *       six of the judges' scores.
@@ -317,7 +453,67 @@ function reportCard() {
    *       representative of the number of tests, quizzes, and homework
    *       grades the user enters, respectively.
    */
-
+let valueOne = prompt("Please enter a homework grade between 0.0 and 100:");
+  
+  while (Number(valueOne) != -1) {
+    while (Number(valueOne) < -1 || Number(valueOne) > 100) {
+      valueOne = prompt("Please enter a homework grade between 0.0 and 100. If all homework grades have been inputted, enter -1:");
+    } 
+    if (Number(valueOne) == -1) {
+      break;
+    } else if (Number(valueOne) >= 0 && Number(valueOne) <= 100){
+      valueOne = Number(valueOne);
+      homeworkTotal = homeworkTotal + valueOne;
+      homeworks = homeworks + 1;
+    }
+    valueOne = prompt("Please enter a homework grade between 0.0 and 100. If all homework grades have been inputted, enter -1:");
+  }
+  
+  let valueTwo = prompt("Please enter a quiz grade between 0.0 and 100:");
+  
+  while (Number(valueTwo) != -1) {
+    while (Number(valueTwo) < -1 || Number(valueTwo) > 100) {
+      valueTwo = prompt("Input a quiz grade between 0.0 and 100. If all quiz grades have been entered, enter -1:");
+    } 
+    if (Number(valueTwo) == -1) {
+      break;
+    } else if (Number(valueTwo) >= 0 && Number(valueTwo) <= 100){
+      valueTwo = Number(valueTwo);
+      quizTotal = quizTotal + valueTwo;
+      quizzes = quizzes + 1;
+    }
+    valueTwo = prompt("Input a quiz grade between 0.0 and 100. If all quiz grades have been entered, enter -1:");
+  }
+  
+  let valueThree = prompt("Please enter a test grade between 0.0 and 100:");
+  
+  while (Number(valueThree) != -1) {
+    while (Number(valueThree) < -1 || Number(valueThree) > 100) {
+      valueThree = prompt("Input a test grade between 0.0 and 100. If all test grades have been entered, enter -1:");
+    } 
+     if (Number(valueThree) == -1) {
+      break;
+    } else if (Number(valueThree) >= 0 && Number(valueThree) <= 100){
+      valueThree = Number(valueThree);
+      testTotal = testTotal + valueThree;
+      tests = tests + 1;
+    }
+    valueThree = prompt("Input a test grade between 0.0 and 100. If all test grades have been entered, enter -1:");
+  }
+  
+  let homeworkGrade = homeworkTotal / homeworks;
+  homeworkGrade = homeworkGrade.toFixed(2);
+  
+  let quizGrade = quizTotal / quizzes;
+  quizGrade = quizGrade.toFixed(2);
+  
+  let testGrade = testTotal / tests;
+  testGrade = testGrade.toFixed(2);
+  
+  let finalGrade = 0.1 * (homeworkGrade) + 0.3 * (quizGrade) + 0.6 * (testGrade);
+  finalGrade = finalGrade.toFixed(2);
+  let reportCardOutput = document.getElementById('report-card-output');
+  reportCardOutput.innerHTML = "Tests: " + testGrade + "<br/>" + "Quizzes: " + quizGrade + "<br/>" + "Homework: " + homeworkGrade + "<br/>" + "Grade: " + finalGrade;
   /////////////////////// DO NOT MODIFY
   check('report-card', // DO NOT MODIFY
     testTotal, ////////// DO NOT MODIFY
